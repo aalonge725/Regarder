@@ -29,13 +29,10 @@ struct HomeView: View {
             Text("\(vm.titles.count) titles")
                 .bold()
                 .foregroundStyle(.accent)
-                .padding(13)
-                .frame(maxHeight: .infinity)
-                .background {
-                    RoundedRectangle(cornerRadius: 8)
-                        .foregroundStyle(.customLight)
-                        .shadow(radius: 8)
-                }
+                .padding(12)
+                .background(.customLight)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(radius: 8)
                 .padding(.leading, 10)
             
             Spacer()
@@ -53,26 +50,19 @@ struct HomeView: View {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                 }
             }
-            .background {
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(maxHeight: .infinity)
-                    .foregroundStyle(.customLight)
-                    .shadow(radius: 8)
-            }
-            
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(maxWidth: 45)
-                    .foregroundStyle(.customLight)
-                    .shadow(radius: 8)
+            .background(.customLight)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .shadow(radius: 8)
                 
-                Button {
-                    // TODO: implement title addition logic
-                } label: {
-                    Image(systemName: "plus")
-                }
+            Button {
+                // TODO: implement title addition logic
+            } label: {
+                Image(systemName: "plus")
+                    .padding(11)
+                    .background(.customLight)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .shadow(radius: 8)
             }
-            .frame(maxHeight: .infinity)
         }
     }
 }
