@@ -9,33 +9,52 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var vm = HomeViewModel()
+    @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.customDark
+                Color.customLight
                     .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack {
+                        ForEach(filteredTitles) { title in
+                            TitleView(title: title)
+                        }
+                    }
+                }
+                .padding(.leading, 10)
+                .padding(.trailing, 10)
+                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     header
                 }
             }
+            .toolbarBackground(.hidden)
+            .searchable(text: $searchText, prompt: "Search for a movie or tv show")
         }
     }
+    
+    var filteredTitles: [Title] {
+            if searchText.isEmpty {
+                return vm.titles
+            } else {
+                return vm.titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            }
+        }
         
     private var header: some View {
         HStack {
             Text("\(vm.titles.count) titles")
                 .bold()
                 .foregroundStyle(.accent)
-                .padding(13)
-                .frame(maxHeight: .infinity)
-                .background {
-                    RoundedRectangle(cornerRadius: 8)
-                        .foregroundStyle(.customLight)
-                        .shadow(radius: 8)
-                }
+                .padding(12)
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(radius: 8)
                 .padding(.leading, 10)
             
             Spacer()
@@ -53,17 +72,14 @@ struct HomeView: View {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                 }
             }
-            .background {
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(maxHeight: .infinity)
-                    .foregroundStyle(.customLight)
-                    .shadow(radius: 8)
-            }
-            
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .shadow(radius: 8)
+                
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .frame(maxWidth: 45)
-                    .foregroundStyle(.customLight)
+                    .foregroundStyle(.white)
+                    .frame(width: 45, height: 45)
                     .shadow(radius: 8)
                 
                 Button {
@@ -72,7 +88,6 @@ struct HomeView: View {
                     Image(systemName: "plus")
                 }
             }
-            .frame(maxHeight: .infinity)
         }
     }
 }

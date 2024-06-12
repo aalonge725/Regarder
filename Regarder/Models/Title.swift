@@ -15,6 +15,12 @@ struct Title: Identifiable {
     let dateReleased: Date
     let posterPicture: String
     let progress: TitleProgress
+    
+    func getDateReleasedString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        return dateFormatter.string(from: dateReleased)
+    }
 }
 
 enum TitleProgress {
