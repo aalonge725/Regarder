@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var vm = HomeViewModel()
+    @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
@@ -18,7 +19,7 @@ struct HomeView: View {
                 
                 ScrollView {
                     VStack {
-                        ForEach(vm.titles) { title in
+                        ForEach(filteredTitles) { title in
                             TitleView(title: title)
                         }
                     }
@@ -33,8 +34,17 @@ struct HomeView: View {
                 }
             }
             .toolbarBackground(.hidden)
+            .searchable(text: $searchText, prompt: "Search for a movie or tv show")
         }
     }
+    
+    var filteredTitles: [Title] {
+            if searchText.isEmpty {
+                return vm.titles
+            } else {
+                return vm.titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            }
+        }
         
     private var header: some View {
         HStack {
@@ -62,7 +72,6 @@ struct HomeView: View {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                 }
             }
-            .padding(.vertical, 5)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(radius: 8)

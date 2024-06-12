@@ -61,6 +61,7 @@ struct TitleView: View {
                     }
                     .padding()
                     .background(.white)
+                    .foregroundStyle(.accent)
                 }
             }
             
