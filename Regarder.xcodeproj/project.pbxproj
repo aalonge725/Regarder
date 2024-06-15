@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17B093CB2C1D2CBD00158BA0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B093CA2C1D2CBD00158BA0 /* NetworkManager.swift */; };
 		17C369892C051880002EF348 /* RegarderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C369882C051880002EF348 /* RegarderApp.swift */; };
 		17C3698B2C051880002EF348 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C3698A2C051880002EF348 /* ContentView.swift */; };
 		17C3698D2C051887002EF348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17C3698C2C051887002EF348 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		17B093CA2C1D2CBD00158BA0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		17C369852C05187F002EF348 /* Regarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Regarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17C369882C051880002EF348 /* RegarderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegarderApp.swift; sourceTree = "<group>"; };
 		17C3698A2C051880002EF348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +46,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17B093C92C1D2C9600158BA0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				17B093CA2C1D2CBD00158BA0 /* NetworkManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		17C3697C2C05187F002EF348 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				17C4DBA42C152286001D430D /* Models */,
+				17B093C92C1D2C9600158BA0 /* Networking */,
 				17C4DB952C117535001D430D /* Home */,
 				17C4DBA72C1525D5001D430D /* ToDo */,
 				17C4DBA82C1525E7001D430D /* Settings */,
@@ -187,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B093CB2C1D2CBD00158BA0 /* NetworkManager.swift in Sources */,
 				17C4DBA62C1522AE001D430D /* Title.swift in Sources */,
 				17C4DB9B2C1175D8001D430D /* SettingsView.swift in Sources */,
 				17C4DB972C117556001D430D /* HomeView.swift in Sources */,
