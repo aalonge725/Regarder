@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkManagerer {
+struct NetworkManager {
     static func get<T: Decodable>(url: URL, responseType: T.Type, urlSession: URLSession = .shared) async throws -> T {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
