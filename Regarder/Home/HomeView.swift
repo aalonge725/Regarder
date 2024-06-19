@@ -30,10 +30,13 @@ struct HomeView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    header
+                    VStack {
+                        header
+                        
+                        Spacer()
+                    }
                 }
             }
-            .toolbarBackground(.hidden)
             .searchable(text: $searchText, prompt: "Search for a movie or tv show")
         }
     }
@@ -51,7 +54,7 @@ struct HomeView: View {
             Text("\(vm.titles.count) titles")
                 .bold()
                 .foregroundStyle(.accent)
-                .padding(12)
+                .padding(8)
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(radius: 8)
@@ -59,7 +62,7 @@ struct HomeView: View {
             
             Spacer()
             
-            HStack(spacing: 0) {
+            HStack(spacing: -10) {
                 Button {
                     // TODO: implement sorting logic
                 } label: {
@@ -72,6 +75,7 @@ struct HomeView: View {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                 }
             }
+            .frame(maxHeight: 36)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(radius: 8)
@@ -79,7 +83,7 @@ struct HomeView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundStyle(.white)
-                    .frame(width: 45, height: 45)
+                    .frame(width: 36, height: 36)
                     .shadow(radius: 8)
                 
                 Button {
