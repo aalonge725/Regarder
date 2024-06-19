@@ -24,8 +24,8 @@ struct HomeView: View {
                         }
                     }
                 }
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
                 
             }
             .toolbar {
@@ -38,6 +38,7 @@ struct HomeView: View {
                 }
             }
             .searchable(text: $searchText, prompt: "Search for a movie or tv show")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
@@ -58,7 +59,7 @@ struct HomeView: View {
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(radius: 8)
-                .padding(.leading, 10)
+                .padding(.leading, 2)
             
             Spacer()
             
