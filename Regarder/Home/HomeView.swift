@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var vm = HomeViewModel()
     @State private var searchText: String = ""
+    @State private var isAddTitleSheetShowing = false
     
     var body: some View {
         NavigationStack {
@@ -39,7 +40,27 @@ struct HomeView: View {
             }
             .searchable(text: $searchText, prompt: "Search for a movie or tv show")
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isAddTitleSheetShowing, onDismiss: didDismiss, content: {
+                NavigationStack {
+                    AddTitleView()
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationTitle("Add Title")
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    isAddTitleSheetShowing = false
+                                } label: {
+                                    Image(systemName: "xmark")
+                                }
+                            }
+                        }
+                }
+            })
         }
+    }
+    
+    func didDismiss() {
+        // TODO: refresh title list
     }
     
     var filteredTitles: [Title] {
@@ -89,6 +110,7 @@ struct HomeView: View {
                 
                 Button {
                     // TODO: implement title addition logic
+                    isAddTitleSheetShowing = true
                 } label: {
                     Image(systemName: "plus")
                 }
