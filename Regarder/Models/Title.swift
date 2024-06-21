@@ -12,19 +12,14 @@ struct Title: Identifiable {
     let title: String
     let isMovie: Bool
     let dateWatched: String?
-    let dateReleased: Date
+    let dateReleased: String
     let posterPicture: String
     let progress: TitleProgress
-    
-    func getDateReleasedString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-        return dateFormatter.string(from: dateReleased)
-    }
 }
 
 enum TitleProgress {
     case watched
     case watching
     case notStarted
+    case unspecified
 }

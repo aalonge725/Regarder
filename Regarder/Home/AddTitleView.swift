@@ -38,6 +38,8 @@ struct AddTitleView: View {
                         }
                     }
                 }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Add Title")
@@ -51,12 +53,17 @@ struct AddTitleView: View {
                 }
             }
             .searchable(text: $vm.searchText, prompt: "Search for a movie or tv show")
+            .onChange(of: vm.searchText) { oldText, newText in
+                vm.searchResultTitles.removeAll()
+            }
             .onChange(of: vm.debouncedText) { oldText, newText in
                 if newText.isEmpty {
                     return
                 }
                 
-                // TODO: check if newText is alphanumeric
+                // TODO: check if newText is alphanumeric; handle allowed non-alphanumeric chars like spaces and ampersands
+                
+                // TODO: change and securely store API key
                 
                 guard let url = URL(string: "https://www.omdbapi.com/?apikey=4ac97843&s=\(newText)") else {
                     isInvalidSearchAlertShowing = true
@@ -84,8 +91,8 @@ struct AddTitleView: View {
     }
     
     private var searchResultTitlesList: some View {
-        ForEach(vm.searchResultTitles) { title in
-            // TODO: make list
+        ForEach(vm.searchResultTitles) { title in // TODO: refactor - make TItleTransformer class
+            TitleView(title: Title(id: title.id, title: title.title, isMovie: title.type == .movie, dateWatched: nil, dateReleased: title.year, posterPicture: title.poster, progress: .unspecified), titleViewType: .OMDbTitle)
         }
     }
 }

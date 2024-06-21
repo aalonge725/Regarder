@@ -21,13 +21,12 @@ struct HomeView: View {
                 ScrollView {
                     VStack {
                         ForEach(filteredTitles) { title in
-                            TitleView(title: title)
+                            TitleView(title: title, titleViewType: .homeViewTitle)
                         }
                     }
                 }
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
-                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {

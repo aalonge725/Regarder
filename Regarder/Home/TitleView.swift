@@ -9,10 +9,11 @@ import SwiftUI
 
 struct TitleView: View {
     @State var title: Title
+    @State var titleViewType: TitleViewType
     
     var body: some View {
         VStack {
-            if title.progress == .watching {
+            if titleViewType == .homeViewTitle && title.progress == .watching {
                 Text("In progress")
                     .foregroundStyle(.red)
                     .bold()
@@ -20,7 +21,7 @@ struct TitleView: View {
             
             Text(title.title)
                 .bold()
-                .font(.title2)
+                .font(titleFont)
                 .multilineTextAlignment(.center)
             
             AsyncImage(url: URL(string: title.posterPicture)) { phase in
@@ -28,6 +29,7 @@ struct TitleView: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: posterMaxWidth)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(radius: 8)
                         .padding()
@@ -66,11 +68,16 @@ struct TitleView: View {
             }
             
             VStack(alignment: .leading) {
-                Text("Watched: ").bold() +
-                Text(title.dateWatched ?? "unknown")
+                if titleViewType == .homeViewTitle {
+                    Text("Watched: ").bold() +
+                    Text(title.dateWatched ?? "unknown")
+                }
                 
-                Text("Aired: ").bold() +
-                Text(title.getDateReleasedString())
+                Group {
+                    Text("Aired: ").bold() +
+                    Text(title.dateReleased)
+                }
+                .frame(maxWidth: .infinity, alignment: titleViewType == .OMDbTitle ? .center : .leading)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading)
@@ -81,8 +88,31 @@ struct TitleView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .shadow(radius: 8)
     }
+    
+    private var posterMaxWidth: CGFloat {
+        switch titleViewType {
+        case .homeViewTitle:
+            return .infinity
+        case .OMDbTitle:
+            return UIScreen.main.bounds.size.width / 3
+        }
+    }
+    
+    private var titleFont: Font {
+        switch titleViewType {
+        case .homeViewTitle:
+            return  .title2
+        case .OMDbTitle:
+            return .title3
+        }
+    }
+}
+
+enum TitleViewType {
+    case homeViewTitle
+    case OMDbTitle
 }
 
 #Preview {
-    TitleView(title: Title(id: "1", title: "Avengers: Infinity War", isMovie: true, dateWatched: "junior or senior year high school?", dateReleased: Date(), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watching))
+    TitleView(title: Title(id: "1", title: "Avengers: Infinity War", isMovie: true, dateWatched: "junior or senior year high school?", dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watching), titleViewType: .OMDbTitle)
 }
