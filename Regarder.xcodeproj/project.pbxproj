@@ -10,6 +10,7 @@
 		179AB44C2C213E3500F90BD4 /* OMDbAPISearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179AB44B2C213E3500F90BD4 /* OMDbAPISearchResult.swift */; };
 		179AB44E2C24CDC700F90BD4 /* AddTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179AB44D2C24CDC700F90BD4 /* AddTitleView.swift */; };
 		17B093CB2C1D2CBD00158BA0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B093CA2C1D2CBD00158BA0 /* NetworkManager.swift */; };
+		17B71ED32C250E2D002461D1 /* AddTitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B71ED22C250E2D002461D1 /* AddTitleViewModel.swift */; };
 		17C369892C051880002EF348 /* RegarderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C369882C051880002EF348 /* RegarderApp.swift */; };
 		17C3698B2C051880002EF348 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C3698A2C051880002EF348 /* ContentView.swift */; };
 		17C3698D2C051887002EF348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17C3698C2C051887002EF348 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		179AB44B2C213E3500F90BD4 /* OMDbAPISearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbAPISearchResult.swift; sourceTree = "<group>"; };
 		179AB44D2C24CDC700F90BD4 /* AddTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTitleView.swift; sourceTree = "<group>"; };
 		17B093CA2C1D2CBD00158BA0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		17B71ED22C250E2D002461D1 /* AddTitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTitleViewModel.swift; sourceTree = "<group>"; };
 		17C369852C05187F002EF348 /* Regarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Regarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17C369882C051880002EF348 /* RegarderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegarderApp.swift; sourceTree = "<group>"; };
 		17C3698A2C051880002EF348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				179AB44D2C24CDC700F90BD4 /* AddTitleView.swift */,
+				17B71ED22C250E2D002461D1 /* AddTitleViewModel.swift */,
 				17C4DB962C117556001D430D /* HomeView.swift */,
 				17C4DBA02C142A64001D430D /* HomeViewModel.swift */,
 				17C4DBA22C14300D001D430D /* TitleView.swift */,
@@ -209,6 +212,7 @@
 				17C4DB9B2C1175D8001D430D /* SettingsView.swift in Sources */,
 				17C4DB972C117556001D430D /* HomeView.swift in Sources */,
 				17C4DBA12C142A64001D430D /* HomeViewModel.swift in Sources */,
+				17B71ED32C250E2D002461D1 /* AddTitleViewModel.swift in Sources */,
 				179AB44C2C213E3500F90BD4 /* OMDbAPISearchResult.swift in Sources */,
 				17C3698B2C051880002EF348 /* ContentView.swift in Sources */,
 				17C4DB992C1175B7001D430D /* ToDoView.swift in Sources */,
