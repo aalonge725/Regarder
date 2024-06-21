@@ -40,21 +40,8 @@ struct HomeView: View {
             }
             .searchable(text: $searchText, prompt: "Search for a movie or tv show")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $isAddTitleSheetShowing, onDismiss: didDismiss, content: {
-                NavigationStack {
-                    AddTitleView()
-                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationTitle("Add Title")
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    isAddTitleSheetShowing = false
-                                } label: {
-                                    Image(systemName: "xmark")
-                                }
-                            }
-                        }
-                }
+            .fullScreenCover(isPresented: $isAddTitleSheetShowing, onDismiss: didDismiss, content: {
+                AddTitleView(isAddTitleSheetShowing: $isAddTitleSheetShowing)
             })
         }
     }
