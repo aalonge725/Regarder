@@ -24,9 +24,9 @@ struct HomeView: View {
                             TitleView(title: title, titleViewType: .homeViewTitle)
                         }
                     }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {

@@ -28,7 +28,7 @@ struct AddTitleView: View {
                                 .padding()
                                 .foregroundStyle(.accent)
                             
-                            Text("Please use the search bar to search for a movie or tv show")
+                            Text("Please use the search bar to search for a movie or tv show to add to your list")
                                 .multilineTextAlignment(.center)
                                 .bold()
                                 .font(.title2)
@@ -37,9 +37,9 @@ struct AddTitleView: View {
                             searchResultTitlesList
                         }
                     }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Add Title")
@@ -52,7 +52,7 @@ struct AddTitleView: View {
                     }
                 }
             }
-            .searchable(text: $vm.searchText, prompt: "Search for a movie or tv show")
+            .searchable(text: $vm.searchText, prompt: "Search for a title to add to your list")
             .onChange(of: vm.searchText) { oldText, newText in
                 vm.searchResultTitles.removeAll()
             }
