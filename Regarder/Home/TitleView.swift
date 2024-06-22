@@ -14,7 +14,7 @@ struct TitleView: View {
     var body: some View {
         VStack {
             if titleViewType == .homeViewTitle && title.progress == .watching {
-                Text("In progress")
+                Text(TitleProgress.watching.rawValue)
                     .foregroundStyle(.red)
                     .bold()
             }

@@ -92,7 +92,15 @@ struct AddTitleView: View {
     
     private var searchResultTitlesList: some View {
         ForEach(vm.searchResultTitles) { title in // TODO: refactor - make TItleTransformer class
-            TitleView(title: Title(id: title.id, title: title.title, isMovie: title.type == .movie, dateWatched: nil, dateReleased: title.year, posterPicture: title.poster, progress: .unspecified), titleViewType: .OMDbTitle)
+            Menu {
+                Section("Select progress") {
+                    ForEach(TitleProgress.allCases, id: \.self) { titleProgress in
+                        Button(titleProgress.rawValue, action: {} /* TODO: add selected title to titles list */)
+                    }
+                }
+            } label: {
+                TitleView(title: Title(id: title.id, title: title.title, isMovie: title.type == .movie, dateWatched: nil, dateReleased: title.year, posterPicture: title.poster, progress: .unspecified), titleViewType: .OMDbTitle)
+            }
         }
     }
 }

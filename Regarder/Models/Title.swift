@@ -17,9 +17,13 @@ struct Title: Identifiable {
     let progress: TitleProgress
 }
 
-enum TitleProgress {
-    case watched
-    case watching
-    case notStarted
+enum TitleProgress: String, CaseIterable {
+    static var allCases: [TitleProgress] {
+        return [.watched, .watching, .notStarted]
+    }
+    
+    case watched = "Watched"
+    case watching = "In progress"
+    case notStarted = "Not Started"
     case unspecified
 }
