@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  TitlesViewModel.swift
 //  Regarder
 //
 //  Created by Abraham Alonge on 6/8/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomeViewModel: ObservableObject {
+class TitlesViewModel: ObservableObject {
     @Published var titles: [Title] = []
     
     init() {

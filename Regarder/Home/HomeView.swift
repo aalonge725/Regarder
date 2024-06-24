@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var vm = HomeViewModel()
+    @EnvironmentObject var titlesViewModel: TitlesViewModel
     @State private var searchText: String = ""
     @State private var isAddTitleSheetShowing = false
     
@@ -51,15 +51,15 @@ struct HomeView: View {
     
     var filteredTitles: [Title] {
             if searchText.isEmpty {
-                return vm.titles
+                return titlesViewModel.titles
             } else {
-                return vm.titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+                return titlesViewModel.titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
             }
         }
         
     private var header: some View {
         HStack {
-            Text("\(vm.titles.count) titles")
+            Text("\(titlesViewModel.titles.count) titles")
                 .bold()
                 .foregroundStyle(.accent)
                 .padding(8)

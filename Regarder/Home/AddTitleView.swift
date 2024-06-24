@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddTitleView: View {
+    @EnvironmentObject var titlesViewModel: TitlesViewModel
     @StateObject var vm = AddTitleViewModel()
     @Binding var isAddTitleSheetShowing: Bool
     @State private var isInvalidSearchAlertShowing = false
