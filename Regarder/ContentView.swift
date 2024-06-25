@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var titlesViewModel = TitlesViewModel()
+    
     var body: some View {
         TabView {
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "movieclapper")
                 }
+                .environmentObject(titlesViewModel)
             
             ToDoView()
                 .tabItem {

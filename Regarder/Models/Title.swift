@@ -11,20 +11,27 @@ struct Title: Identifiable {
     let id: String
     let title: String
     let isMovie: Bool
-    let dateWatched: String?
-    let dateReleased: Date
+    var dateWatched: String?
+    let dateReleased: String
     let posterPicture: String
-    let progress: TitleProgress
+    var progress: TitleProgress
     
-    func getDateReleasedString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-        return dateFormatter.string(from: dateReleased)
+    mutating func updateProgress(progress: TitleProgress) {
+        self.progress = progress
+    }
+    
+    mutating func setDateWatched(date: String) {
+        self.dateWatched = date
     }
 }
 
-enum TitleProgress {
-    case watched
-    case watching
-    case notStarted
+enum TitleProgress: String, CaseIterable {
+    static var allCases: [TitleProgress] {
+        return [.watched, .watching, .notStarted]
+    }
+    
+    case watched = "Watched"
+    case watching = "In progress"
+    case notStarted = "Not Started"
+    case unspecified
 }

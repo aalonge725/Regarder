@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var vm = HomeViewModel()
+    @EnvironmentObject var titlesViewModel: TitlesViewModel
     @State private var searchText: String = ""
+    @State private var isAddTitleSheetShowing = false
     
     var body: some View {
         NavigationStack {
@@ -20,46 +21,56 @@ struct HomeView: View {
                 ScrollView {
                     VStack {
                         ForEach(filteredTitles) { title in
-                            TitleView(title: title)
+                            TitleView(title: title, titleViewType: .homeViewTitle)
                         }
                     }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                 }
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
-                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    header
+                    VStack {
+                        header
+                        
+                        Spacer()
+                    }
                 }
             }
-            .toolbarBackground(.hidden)
             .searchable(text: $searchText, prompt: "Search for a movie or tv show")
+            .navigationBarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $isAddTitleSheetShowing, onDismiss: didDismiss, content: {
+                AddTitleView(isAddTitleSheetShowing: $isAddTitleSheetShowing)
+            })
         }
+    }
+    
+    func didDismiss() {
+        // TODO: refresh title list
     }
     
     var filteredTitles: [Title] {
             if searchText.isEmpty {
-                return vm.titles
+                return titlesViewModel.getTitles()
             } else {
-                return vm.titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+                return titlesViewModel.getTitles().filter { $0.title.localizedCaseInsensitiveContains(searchText) }
             }
         }
         
     private var header: some View {
         HStack {
-            Text("\(vm.titles.count) titles")
+            Text("\(titlesViewModel.getTitles().count) titles")
                 .bold()
                 .foregroundStyle(.accent)
-                .padding(12)
+                .padding(8)
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(radius: 8)
-                .padding(.leading, 10)
+                .padding(.leading, 2)
             
             Spacer()
             
-            HStack(spacing: 0) {
+            HStack(spacing: -10) {
                 Button {
                     // TODO: implement sorting logic
                 } label: {
@@ -72,6 +83,7 @@ struct HomeView: View {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                 }
             }
+            .frame(maxHeight: 36)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(radius: 8)
@@ -79,11 +91,12 @@ struct HomeView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundStyle(.white)
-                    .frame(width: 45, height: 45)
+                    .frame(width: 36, height: 36)
                     .shadow(radius: 8)
                 
                 Button {
                     // TODO: implement title addition logic
+                    isAddTitleSheetShowing = true
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -94,4 +107,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(TitlesViewModel())
 }
