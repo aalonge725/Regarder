@@ -21,6 +21,7 @@
 		17C4DBA12C142A64001D430D /* TitlesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DBA02C142A64001D430D /* TitlesViewModel.swift */; };
 		17C4DBA32C14300D001D430D /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DBA22C14300D001D430D /* TitleView.swift */; };
 		17C4DBA62C1522AE001D430D /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DBA52C1522AE001D430D /* Title.swift */; };
+		17F4D1B32C2955FE00F42F50 /* TitleMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F4D1B22C2955FE00F42F50 /* TitleMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		17C4DBA02C142A64001D430D /* TitlesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlesViewModel.swift; sourceTree = "<group>"; };
 		17C4DBA22C14300D001D430D /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		17C4DBA52C1522AE001D430D /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
+		17F4D1B22C2955FE00F42F50 /* TitleMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			children = (
 				17C4DBA52C1522AE001D430D /* Title.swift */,
 				179AB44B2C213E3500F90BD4 /* OMDbAPISearchResult.swift */,
+				17F4D1B22C2955FE00F42F50 /* TitleMapper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				17B71ED32C250E2D002461D1 /* AddTitleViewModel.swift in Sources */,
 				179AB44C2C213E3500F90BD4 /* OMDbAPISearchResult.swift in Sources */,
 				17C3698B2C051880002EF348 /* ContentView.swift in Sources */,
+				17F4D1B32C2955FE00F42F50 /* TitleMapper.swift in Sources */,
 				17C4DB992C1175B7001D430D /* ToDoView.swift in Sources */,
 				179AB44E2C24CDC700F90BD4 /* AddTitleView.swift in Sources */,
 				17C369892C051880002EF348 /* RegarderApp.swift in Sources */,

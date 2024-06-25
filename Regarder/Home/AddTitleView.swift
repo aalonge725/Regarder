@@ -9,10 +9,14 @@ import SwiftUI
 
 struct AddTitleView: View {
     @EnvironmentObject var titlesViewModel: TitlesViewModel
-    @StateObject var vm = AddTitleViewModel()
+    @StateObject private var vm = AddTitleViewModel()
     @Binding var isAddTitleSheetShowing: Bool
     @State private var isInvalidSearchAlertShowing = false
     @State private var isSearchRequestErrorAlertShowing = false
+    @State private var showSearchBar = true
+    @State private var showDateWatchedView = false
+    @State private var dateWatchedTextFieldText = ""
+    @State private var selectedTitle: Title? = nil
     
     var body: some View {
         NavigationStack {
@@ -41,9 +45,15 @@ struct AddTitleView: View {
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
                 }
+                
+                if showDateWatchedView {
+                    dateWatchedView
+                }
             }
-            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Add Title")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $vm.searchText,  prompt: "Search for a title")
+            .toolbar(showSearchBar ? .visible : .hidden)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -53,7 +63,6 @@ struct AddTitleView: View {
                     }
                 }
             }
-            .searchable(text: $vm.searchText, prompt: "Search for a title to add to your list")
             .onChange(of: vm.searchText) { oldText, newText in
                 vm.searchResultTitles.removeAll()
             }
@@ -74,7 +83,9 @@ struct AddTitleView: View {
                 Task {
                     do {
                         let response = try await NetworkManager.get(url: url, responseType: OMDbAPISearchResult.self) // TODO: make model for failed search result (ex. too many results or movie not found)
-                        vm.searchResultTitles = response.titles
+                        vm.searchResultTitles = response.titles.map {
+                            TitleMapper.titleFromOMDbAPI(title: $0, progress: .unspecified, dateWatched: nil)
+                        }
                     } catch {
                         vm.searchRequestErrorDescription = error.localizedDescription
                         isSearchRequestErrorAlertShowing = true
@@ -92,16 +103,68 @@ struct AddTitleView: View {
     }
     
     private var searchResultTitlesList: some View {
-        ForEach(vm.searchResultTitles) { title in // TODO: refactor - make TItleTransformer class
+        ForEach(vm.searchResultTitles) { title in
             Menu {
                 Section("Select progress") {
                     ForEach(TitleProgress.allCases, id: \.self) { titleProgress in
-                        Button(titleProgress.rawValue, action: {} /* TODO: add selected title to titles list */)
+                        Button(titleProgress.rawValue, action: {
+                            selectedTitle = title
+                            
+                            if titleProgress == .watched {
+                                showDateWatchedView = true
+                                showSearchBar = false
+                            } else {
+                                addSelectedTitle(progress: titleProgress)
+                            }
+                        })
                     }
                 }
             } label: {
-                TitleView(title: Title(id: title.id, title: title.title, isMovie: title.type == .movie, dateWatched: nil, dateReleased: title.year, posterPicture: title.poster, progress: .unspecified), titleViewType: .OMDbTitle)
+                TitleView(title: title, titleViewType: .OMDbTitle)
             }
+        }
+    }
+    
+    private var dateWatchedView: some View {
+        ZStack {
+            Color.black
+                .opacity(0.5)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    showDateWatchedView = false
+                    showSearchBar = true
+                    dateWatchedTextFieldText = ""
+                }
+            
+            TextField("Enter when you watched the title", text: $dateWatchedTextFieldText)
+                .textInputAutocapitalization(.never)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 8).fill(.white)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.accentColor, lineWidth: 2)
+                )
+                .padding()
+                .onSubmit {
+                    addSelectedTitle(progress: .watched)
+                    showDateWatchedView = false
+                    showSearchBar = true
+                }
+        }
+    }
+    
+    private func addSelectedTitle(progress: TitleProgress) { // TODO: prevent addition of duplicates
+        if var selectedTitle = selectedTitle {
+            if progress == .watched {
+                selectedTitle.setDateWatched(date: dateWatchedTextFieldText)
+                dateWatchedTextFieldText = ""
+            }
+            
+            selectedTitle.updateProgress(progress: progress)
+            titlesViewModel.addTitle(title: selectedTitle)
+            self.selectedTitle = nil
         }
     }
 }

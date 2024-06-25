@@ -11,10 +11,18 @@ struct Title: Identifiable {
     let id: String
     let title: String
     let isMovie: Bool
-    let dateWatched: String?
+    var dateWatched: String?
     let dateReleased: String
     let posterPicture: String
-    let progress: TitleProgress
+    var progress: TitleProgress
+    
+    mutating func updateProgress(progress: TitleProgress) {
+        self.progress = progress
+    }
+    
+    mutating func setDateWatched(date: String) {
+        self.dateWatched = date
+    }
 }
 
 enum TitleProgress: String, CaseIterable {

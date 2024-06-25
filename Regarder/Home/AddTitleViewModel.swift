@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class AddTitleViewModel: ObservableObject {
-    @Published var searchResultTitles: [OMDbAPITitle] = []
+    @Published var searchResultTitles: [Title] = []
     @Published var searchText = ""
     @Published var debouncedText = ""
     @Published var searchRequestErrorDescription = ""

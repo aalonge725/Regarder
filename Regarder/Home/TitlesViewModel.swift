@@ -8,7 +8,7 @@
 import Foundation
 
 class TitlesViewModel: ObservableObject {
-    @Published var titles: [Title] = []
+    @Published private var titles: [Title] = []
     
     init() {
         titles = getMockTitles()
@@ -19,5 +19,13 @@ class TitlesViewModel: ObservableObject {
                 Title(id: "2", title: "The Office", isMovie: false, dateWatched: nil, dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watching),
                 Title(id: "3", title: "Interstellar", isMovie: true, dateWatched: nil, dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watched),
                 Title(id: "4", title: "Pair of Kings", isMovie: false, dateWatched: "elementary school", dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watched)]
+    }
+    
+    func getTitles() -> [Title] {
+        return titles
+    }
+    
+    func addTitle(title: Title) {
+        titles.append(title)
     }
 }

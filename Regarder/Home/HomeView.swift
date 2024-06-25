@@ -51,15 +51,15 @@ struct HomeView: View {
     
     var filteredTitles: [Title] {
             if searchText.isEmpty {
-                return titlesViewModel.titles
+                return titlesViewModel.getTitles()
             } else {
-                return titlesViewModel.titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+                return titlesViewModel.getTitles().filter { $0.title.localizedCaseInsensitiveContains(searchText) }
             }
         }
         
     private var header: some View {
         HStack {
-            Text("\(titlesViewModel.titles.count) titles")
+            Text("\(titlesViewModel.getTitles().count) titles")
                 .bold()
                 .foregroundStyle(.accent)
                 .padding(8)
@@ -107,4 +107,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(TitlesViewModel())
 }
