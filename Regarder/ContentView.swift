@@ -6,11 +6,28 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
     @StateObject private var titlesViewModel = TitlesViewModel()
+    @State private var userIsLoggedIn = false
     
     var body: some View {
+        if userIsLoggedIn {
+            content
+        } else {
+            AuthenticationView()
+                .onAppear {
+                    Auth.auth().addStateDidChangeListener { auth, user in
+                        if user != nil {
+                            userIsLoggedIn = true
+                        }
+                    }
+                }
+        }
+    }
+    
+    var content: some View {
         TabView {
             HomeView()
                 .tabItem {
