@@ -93,3 +93,5 @@ iOSInjectionProject/
 .DS_Store
 .Spotlight-V100
 .Trashes
+
+GoogleService-Info.plist
