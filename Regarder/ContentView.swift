@@ -10,20 +10,21 @@ import Firebase
 
 struct ContentView: View {
     @StateObject private var titlesViewModel = TitlesViewModel()
-    @State private var userIsLoggedIn = false
+    @StateObject private var firebaseManager = FirebaseManager()
     
     var body: some View {
-        if userIsLoggedIn {
+        if firebaseManager.userIsLoggedIn {
             content
         } else {
             AuthenticationView()
                 .onAppear {
                     Auth.auth().addStateDidChangeListener { auth, user in
                         if user != nil {
-                            userIsLoggedIn = true
+                            firebaseManager.userIsLoggedIn = true
                         }
                     }
                 }
+                .environmentObject(firebaseManager)
         }
     }
     
@@ -44,6 +45,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
+                .environmentObject(firebaseManager)
         }
     }
 }

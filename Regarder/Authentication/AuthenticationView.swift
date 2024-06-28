@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuthenticationView: View {
+    @EnvironmentObject var firebaseManager: FirebaseManager
     @StateObject private var vm = AuthenticationViewModel()
     @State private var animationValue = false
     
@@ -40,7 +41,7 @@ struct AuthenticationView: View {
                     .regarderAuthTextFieldStyle()
                 
                 Button {
-                    // TODO: add register logic
+                    firebaseManager.register(email: vm.email, password: vm.password)
                 } label: {
                     Text("Register")
                         .regarderAuthButtonStyle()
@@ -50,7 +51,7 @@ struct AuthenticationView: View {
                     .foregroundStyle(.accent)
                 
                 Button {
-                    // TODO: add log in logic
+                    firebaseManager.logIn(email: vm.email, password: vm.password)
                 } label: {
                     Text("Log In")
                         .regarderAuthButtonStyle()
@@ -60,29 +61,6 @@ struct AuthenticationView: View {
         .onAppear {
             animationValue = true
         }
-    }
-}
-
-extension View {
-    func regarderAuthTextFieldStyle() -> some View {
-        self
-            .padding()
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .padding()
-            .textInputAutocapitalization(.never)
-    }
-}
-
-extension Text {
-    func regarderAuthButtonStyle() -> some View {
-        self
-            .bold()
-            .padding()
-            .padding(.horizontal)
-            .foregroundStyle(.white)
-            .background(.accent)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 
