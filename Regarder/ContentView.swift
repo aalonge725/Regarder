@@ -9,8 +9,8 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
-    @StateObject private var titlesViewModel = TitlesViewModel()
     @StateObject private var firebaseManager = FirebaseManager()
+    @StateObject private var titlesViewModel = TitlesViewModel()
     
     var body: some View {
         if firebaseManager.userIsLoggedIn {
@@ -18,9 +18,12 @@ struct ContentView: View {
         } else {
             AuthenticationView()
                 .onAppear {
+                    titlesViewModel.setFirebaseManager(firebaseManager: firebaseManager)
+                    
                     Auth.auth().addStateDidChangeListener { auth, user in
-                        if user != nil {
+                        if let user = user {
                             firebaseManager.userIsLoggedIn = true
+                            firebaseManager.userID = user.uid
                         }
                     }
                 }

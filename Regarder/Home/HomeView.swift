@@ -28,6 +28,9 @@ struct HomeView: View {
                     .padding(.trailing, 16)
                 }
             }
+            .onAppear {
+                titlesViewModel.fetchTitles()
+            }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
@@ -39,23 +42,19 @@ struct HomeView: View {
             }
             .searchable(text: $searchText, prompt: "Search for a movie or tv show")
             .navigationBarTitleDisplayMode(.inline)
-            .fullScreenCover(isPresented: $isAddTitleSheetShowing, onDismiss: didDismiss, content: {
+            .fullScreenCover(isPresented: $isAddTitleSheetShowing, content: {
                 AddTitleView(isAddTitleSheetShowing: $isAddTitleSheetShowing)
             })
         }
     }
     
-    func didDismiss() {
-        // TODO: refresh title list
-    }
-    
     var filteredTitles: [Title] {
-            if searchText.isEmpty {
-                return titlesViewModel.getTitles()
-            } else {
-                return titlesViewModel.getTitles().filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            }
+        if searchText.isEmpty {
+            return titlesViewModel.getTitles()
+        } else {
+            return titlesViewModel.getTitles().filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
+    }
         
     private var header: some View {
         HStack {
