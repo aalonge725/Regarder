@@ -9,23 +9,40 @@ import Foundation
 
 class TitlesViewModel: ObservableObject {
     @Published private var titles: [Title] = []
+    private var firebaseManager: FirebaseManager? = nil
     
-    init() {
-        titles = getMockTitles()
+    func setFirebaseManager(firebaseManager: FirebaseManager) {
+        self.firebaseManager = firebaseManager
     }
     
-    private func getMockTitles() -> [Title] {
-        return [Title(id: "1", title: "Avengers: Infinity War", isMovie: true, dateWatched: "junior or senior year high school?", dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watched),
-                Title(id: "2", title: "The Office", isMovie: false, dateWatched: nil, dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watching),
-                Title(id: "3", title: "Interstellar", isMovie: true, dateWatched: nil, dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watched),
-                Title(id: "4", title: "Pair of Kings", isMovie: false, dateWatched: "elementary school", dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watched)]
+    func fetchTitles() {
+        guard let firebaseManager = firebaseManager else {
+            print("Error: firebase manager is nil during fetch")
+            return
+        }
+        
+        firebaseManager.fetchTitles { titles, error in
+            if let error = error {
+                print("Error fetching titles: \(error.localizedDescription)")
+                return
+            }
+            
+            if let titles = titles {
+                self.titles = titles
+            }
+        }
     }
     
     func getTitles() -> [Title] {
-        return titles
+        return self.titles
     }
     
     func addTitle(title: Title) {
-        titles.append(title)
+        guard let firebaseManager = firebaseManager else {
+            print("Error: firebase manager is nil")
+            return
+        }
+        
+        firebaseManager.addTitle(title: title)
     }
 }

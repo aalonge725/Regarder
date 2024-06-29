@@ -34,7 +34,7 @@ struct TitleView: View {
                         .shadow(radius: 8)
                         .padding()
                         .background {
-                            if !title.isMovie {
+                            if title.type == .series {
                                 RoundedRectangle(cornerRadius: 20)
                                     .padding()
                                     .offset(x: 10, y: -10)
@@ -45,7 +45,7 @@ struct TitleView: View {
                         }
                 } else if phase.error != nil {
                     VStack {
-                        Image(systemName: title.isMovie ? "film" : "film.stack")
+                        Image(systemName: title.type == .movie ? "film" : "film.stack")
                             .imageScale(.large)
                         
                         Text("Error loading image")
@@ -56,7 +56,7 @@ struct TitleView: View {
                     .foregroundStyle(.red)
                 } else {
                     VStack {
-                        Image(systemName: title.isMovie ? "film" : "film.stack")
+                        Image(systemName: title.type == .movie ? "film" : "film.stack")
                             .imageScale(.large)
                         
                         ProgressView()
@@ -70,7 +70,7 @@ struct TitleView: View {
             VStack(alignment: .leading) {
                 if titleViewType == .homeViewTitle {
                     Text("Watched: ").bold() +
-                    Text(title.dateWatched ?? "unknown")
+                    Text((title.dateWatched == nil || title.dateWatched!.isEmpty) ? "unknown" : title.dateWatched!)
                 }
                 
                 Group {
@@ -114,5 +114,5 @@ enum TitleViewType {
 }
 
 #Preview {
-    TitleView(title: Title(id: "1", title: "Avengers: Infinity War", isMovie: true, dateWatched: "junior or senior year high school?", dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watching), titleViewType: .OMDbTitle)
+    TitleView(title: Title(id: "1", title: "Avengers: Infinity War", type: .movie, dateWatched: "junior or senior year high school?", dateReleased: Date().formatted(date: .long, time: .omitted), posterPicture: "https://i.ebayimg.com/images/g/VpQAAOSwHvpa7zbY/s-l400.jpg", progress: .watching), titleViewType: .OMDbTitle)
 }

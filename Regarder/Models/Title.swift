@@ -9,8 +9,9 @@ import Foundation
 
 struct Title: Identifiable {
     let id: String
+    var userID: String? = nil
     let title: String
-    let isMovie: Bool
+    let type: TitleType
     var dateWatched: String?
     let dateReleased: String
     let posterPicture: String
@@ -25,6 +26,12 @@ struct Title: Identifiable {
     }
 }
 
+enum TitleType: String {
+    case movie
+    case series
+    case unknown
+}
+
 enum TitleProgress: String, CaseIterable {
     static var allCases: [TitleProgress] {
         return [.watched, .watching, .notStarted]
@@ -33,5 +40,5 @@ enum TitleProgress: String, CaseIterable {
     case watched = "Watched"
     case watching = "In progress"
     case notStarted = "Not Started"
-    case unspecified
+    case unspecified = "Unspecified"
 }
