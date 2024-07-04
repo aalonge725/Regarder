@@ -39,11 +39,6 @@ struct ContentView: View {
                 }
                 .environmentObject(titlesViewModel)
             
-            ToDoView()
-                .tabItem {
-                    Label("ToDo", systemImage: "list.and.film")
-                }
-            
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")

@@ -11,6 +11,7 @@ struct HomeView: View {
     @EnvironmentObject var titlesViewModel: TitlesViewModel
     @State private var searchText: String = ""
     @State private var isAddTitleSheetShowing = false
+    @State private var selectedProgressType: ProgressPickerType = .all
     
     var body: some View {
         NavigationStack {
@@ -20,7 +21,14 @@ struct HomeView: View {
                 
                 ScrollView {
                     VStack {
-                        ForEach(filteredTitles) { title in
+                        Picker("Progress Picker Type", selection: $selectedProgressType) {
+                            ForEach(ProgressPickerType.allCases, id: \.self) { progress in
+                                Text(progress.rawValue)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        
+                        ForEach(filteredTitles()) { title in
                             TitleView(title: title, titleViewType: .homeViewTitle)
                         }
                     }
@@ -44,21 +52,28 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .fullScreenCover(isPresented: $isAddTitleSheetShowing, content: {
                 AddTitleView(isAddTitleSheetShowing: $isAddTitleSheetShowing)
-            })
+            }) // TODO: add refreshable that force fetches Titles documents
         }
     }
-    
-    var filteredTitles: [Title] {
-        if searchText.isEmpty {
-            return titlesViewModel.getTitles()
-        } else {
-            return titlesViewModel.getTitles().filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+        
+    func filteredTitles() -> [Title] {
+        var titles: [Title] = []
+        
+        switch selectedProgressType {
+        case .all:
+            titles = titlesViewModel.getTitles()
+        case .started:
+            titles = titlesViewModel.getTitles().filter { $0.progress == .watched || $0.progress == .watching }
+        case .notStarted:
+            titles = titlesViewModel.getTitles().filter { $0.progress == .notStarted }
         }
+        
+        return searchText.isEmpty ? titles : titles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
         
     private var header: some View {
         HStack {
-            Text("\(titlesViewModel.getTitles().count) titles")
+            Text(titlesViewModel.getTitles().count == 1 ? "1 title" : "\(titlesViewModel.getTitles().count) titles")
                 .bold()
                 .foregroundStyle(.accent)
                 .padding(8)
@@ -94,7 +109,6 @@ struct HomeView: View {
                     .shadow(radius: 8)
                 
                 Button {
-                    // TODO: implement title addition logic
                     isAddTitleSheetShowing = true
                 } label: {
                     Image(systemName: "plus")
@@ -102,6 +116,12 @@ struct HomeView: View {
             }
         }
     }
+}
+
+enum ProgressPickerType: String, CaseIterable {
+    case all = "All"
+    case started = "Started"
+    case notStarted = "Not Started"
 }
 
 #Preview {

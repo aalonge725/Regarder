@@ -23,7 +23,6 @@
 		17C3698D2C051887002EF348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17C3698C2C051887002EF348 /* Assets.xcassets */; };
 		17C369902C051887002EF348 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17C3698F2C051887002EF348 /* Preview Assets.xcassets */; };
 		17C4DB972C117556001D430D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DB962C117556001D430D /* HomeView.swift */; };
-		17C4DB992C1175B7001D430D /* ToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DB982C1175B7001D430D /* ToDoView.swift */; };
 		17C4DB9B2C1175D8001D430D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DB9A2C1175D8001D430D /* SettingsView.swift */; };
 		17C4DBA12C142A64001D430D /* TitlesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DBA02C142A64001D430D /* TitlesViewModel.swift */; };
 		17C4DBA32C14300D001D430D /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4DBA22C14300D001D430D /* TitleView.swift */; };
@@ -47,7 +46,6 @@
 		17C3698C2C051887002EF348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17C3698F2C051887002EF348 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		17C4DB962C117556001D430D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		17C4DB982C1175B7001D430D /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
 		17C4DB9A2C1175D8001D430D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		17C4DBA02C142A64001D430D /* TitlesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlesViewModel.swift; sourceTree = "<group>"; };
 		17C4DBA22C14300D001D430D /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 				17C3698E2C051887002EF348 /* Preview Content */,
 				17C369882C051880002EF348 /* RegarderApp.swift */,
 				17C4DBA82C1525E7001D430D /* Settings */,
-				17C4DBA72C1525D5001D430D /* ToDo */,
 			);
 			path = Regarder;
 			sourceTree = "<group>";
@@ -149,14 +146,6 @@
 				17F4D1B22C2955FE00F42F50 /* TitleMapper.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		17C4DBA72C1525D5001D430D /* ToDo */ = {
-			isa = PBXGroup;
-			children = (
-				17C4DB982C1175B7001D430D /* ToDoView.swift */,
-			);
-			path = ToDo;
 			sourceTree = "<group>";
 		};
 		17C4DBA82C1525E7001D430D /* Settings */ = {
@@ -255,7 +244,6 @@
 				179AB44C2C213E3500F90BD4 /* OMDbAPISearchResult.swift in Sources */,
 				17C3698B2C051880002EF348 /* ContentView.swift in Sources */,
 				17F4D1B32C2955FE00F42F50 /* TitleMapper.swift in Sources */,
-				17C4DB992C1175B7001D430D /* ToDoView.swift in Sources */,
 				175143CD2C2D00E4003CDCD1 /* AuthenticationView.swift in Sources */,
 				17A196832C2D049200A7DCE5 /* FirebaseManager.swift in Sources */,
 				17A196852C2E041A00A7DCE5 /* AuthenticationExtensions.swift in Sources */,

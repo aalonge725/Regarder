@@ -38,7 +38,7 @@ enum TitleProgress: String, CaseIterable {
     }
     
     case watched = "Watched"
-    case watching = "In progress"
+    case watching = "In Progress"
     case notStarted = "Not Started"
     case unspecified = "Unspecified"
 }
